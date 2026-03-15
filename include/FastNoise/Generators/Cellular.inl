@@ -52,6 +52,7 @@ class FS_T<FastNoise::CellularValue, FS> : public virtual FastNoise::CellularVal
                 float32v invMag = jitter * FS_InvSqrt_f32( FS_FMulAdd_f32( xd, xd, yd * yd ) );
                 xd = FS_FMulAdd_f32( xd, invMag, xcf );
                 yd = FS_FMulAdd_f32( yd, invMag, ycf );
+                yd += ( yd) * this->GetSourceValue(mYScale, seed, x, y);
 
                 float32v newCellValue = float32v( (float)(1.0 / INT_MAX) ) * FS_Converti32_f32( hash );
                 float32v newDistance = FnUtils::CalcDistance( mDistanceFunction, xd, yd );
@@ -125,6 +126,7 @@ class FS_T<FastNoise::CellularValue, FS> : public virtual FastNoise::CellularVal
                     xd = FS_FMulAdd_f32( xd, invMag, xcf );
                     yd = FS_FMulAdd_f32( yd, invMag, ycf );
                     zd = FS_FMulAdd_f32( zd, invMag, zcf );
+                    yd += ( yd) * this->GetSourceValue(mYScale, seed, x, y, z);
                 
                     float32v newCellValue = float32v( (float)(1.0 / INT_MAX) ) * FS_Converti32_f32( hash );
                     float32v newDistance = FnUtils::CalcDistance( mDistanceFunction, xd, yd, zd );
@@ -210,6 +212,7 @@ class FS_T<FastNoise::CellularValue, FS> : public virtual FastNoise::CellularVal
                         yd = FS_FMulAdd_f32( yd, invMag, ycf );
                         zd = FS_FMulAdd_f32( zd, invMag, zcf );
                         wd = FS_FMulAdd_f32( wd, invMag, wcf );
+                        yd += ( yd) * this->GetSourceValue(mYScale, seed, x, y, z, w);
 
                         float32v newCellValue = float32v( (float)(1.0 / INT_MAX) ) * FS_Converti32_f32( hash );
                         float32v newDistance = FnUtils::CalcDistance( mDistanceFunction, xd, yd, zd, wd );
@@ -284,6 +287,7 @@ class FS_T<FastNoise::CellularDistance, FS> : public virtual FastNoise::Cellular
                 float32v invMag = jitter * FS_InvSqrt_f32( FS_FMulAdd_f32( xd, xd, yd * yd ) );
                 xd = FS_FMulAdd_f32( xd, invMag, xcf );
                 yd = FS_FMulAdd_f32( yd, invMag, ycf );
+                yd += ( yd) * this->GetSourceValue(mYScale, seed, x, y);
 
                 float32v newDistance = FnUtils::CalcDistance( mDistanceFunction, xd, yd );
 
@@ -342,6 +346,7 @@ class FS_T<FastNoise::CellularDistance, FS> : public virtual FastNoise::Cellular
                     xd = FS_FMulAdd_f32( xd, invMag, xcf );
                     yd = FS_FMulAdd_f32( yd, invMag, ycf );
                     zd = FS_FMulAdd_f32( zd, invMag, zcf );
+                    yd += ( yd) * this->GetSourceValue(mYScale, seed, x, y, z);
 
                     float32v newDistance = FnUtils::CalcDistance( mDistanceFunction, xd, yd, zd );
 
@@ -412,6 +417,7 @@ class FS_T<FastNoise::CellularDistance, FS> : public virtual FastNoise::Cellular
                         yd = FS_FMulAdd_f32( yd, invMag, ycf );
                         zd = FS_FMulAdd_f32( zd, invMag, zcf );
                         wd = FS_FMulAdd_f32( wd, invMag, wcf );
+                        yd += ( yd) * this->GetSourceValue(mYScale, seed, x, y, z, w);
 
                         float32v newDistance = FnUtils::CalcDistance( mDistanceFunction, xd, yd, zd, wd );
 
@@ -506,6 +512,7 @@ class FS_T<FastNoise::CellularLookup, FS> : public virtual FastNoise::CellularLo
                 float32v invMag = jitter * FS_InvSqrt_f32( FS_FMulAdd_f32( xd, xd, yd * yd ) );
                 xd = FS_FMulAdd_f32( xd, invMag, xcf );
                 yd = FS_FMulAdd_f32( yd, invMag, ycf );
+                yd += ( yd) * this->GetSourceValue(mYScale, seed, x, y);
 
                 float32v newDistance = FnUtils::CalcDistance( mDistanceFunction, xd, yd );
 
@@ -562,6 +569,7 @@ class FS_T<FastNoise::CellularLookup, FS> : public virtual FastNoise::CellularLo
                     xd = FS_FMulAdd_f32( xd, invMag, xcf );
                     yd = FS_FMulAdd_f32( yd, invMag, ycf );
                     zd = FS_FMulAdd_f32( zd, invMag, zcf );
+                    yd += ( yd) * this->GetSourceValue(mYScale, seed, x, y, z);
 
                     float32v newDistance = FnUtils::CalcDistance( mDistanceFunction, xd, yd, zd );
 
@@ -631,6 +639,7 @@ class FS_T<FastNoise::CellularLookup, FS> : public virtual FastNoise::CellularLo
                         yd = FS_FMulAdd_f32( yd, invMag, ycf );
                         zd = FS_FMulAdd_f32( zd, invMag, zcf );
                         wd = FS_FMulAdd_f32( wd, invMag, wcf );
+                        yd += ( yd) * this->GetSourceValue(mYScale, seed, x, y, z, w);
 
                         float32v newDistance = FnUtils::CalcDistance( mDistanceFunction, xd, yd, zd, wd );
 

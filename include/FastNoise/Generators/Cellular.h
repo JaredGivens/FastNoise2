@@ -8,11 +8,14 @@ namespace FastNoise
     class Cellular : public virtual Generator
     {
     public:
+        void SetYScale( SmartNodeArg<> gen ) { this->SetSourceMemberVariable( mYScale, gen ); }
+        void SetYScale( float value ) { mYScale = value; }
         void SetJitterModifier( SmartNodeArg<> gen ) { this->SetSourceMemberVariable( mJitterModifier, gen ); }
         void SetJitterModifier( float value ) { mJitterModifier = value; }
         void SetDistanceFunction( DistanceFunction value ) { mDistanceFunction = value; }
 
     protected:
+        HybridSource mYScale = 1.0f;
         HybridSource mJitterModifier = 1.0f;
         DistanceFunction mDistanceFunction = DistanceFunction::EuclideanSquared;
     };
@@ -24,6 +27,7 @@ namespace FastNoise
         MetadataT()
         {
             groups.push_back( "Coherent Noise" );
+            this->AddHybridSource( { "Y Scale", "Y Scale" }, 1.0f, &Cellular::SetYScale, &Cellular::SetYScale );
             this->AddHybridSource( { "Jitter Modifier", "Above 1.0 will cause grid artifacts" }, 1.0f, &Cellular::SetJitterModifier, &Cellular::SetJitterModifier );
             this->AddVariableEnum( { "Distance Function", "How distance to closest cells is calculated\nHybrid is EuclideanSquared + Manhattan" },
                 DistanceFunction::EuclideanSquared, &Cellular::SetDistanceFunction, kDistanceFunction_Strings );
